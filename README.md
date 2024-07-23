@@ -1,4 +1,4 @@
-Copyright - Harvard CS50 program
+
 
 **Background**
 When search engines like Google display search results, they do so by placing more “important” and higher-quality pages higher in the search results than less important pages. But how does the search engine know which pages are more important than other pages?
@@ -11,6 +11,8 @@ For that reason, the PageRank algorithm was created by Google’s co-founders (i
 
 **_Random Surfer Model_**
 One way to think about PageRank is with the random surfer model, which considers the behavior of a hypothetical surfer on the internet who clicks on links at random. Consider the corpus of web pages below, where an arrow between two pages indicates a link from one page to another.
+![image](https://github.com/user-attachments/assets/0ea3d105-df83-4f4a-9692-9a300f0c054e)
+
 
 _**Corpus of web pages**_
 The random surfer model imagines a surfer who starts with a web page at random, and then randomly chooses links to follow. If the surfer is on Page 2, for example, they would randomly choose between Page 1 and Page 3 to visit next (duplicate links on the same page are treated as a single link, and links from a page to itself are ignored as well). If they chose Page 3, the surfer would then randomly choose between Page 2 and Page 4 to visit next.
@@ -22,6 +24,7 @@ One way to interpret this model is as a Markov Chain, where each page represents
 By sampling states randomly from the Markov Chain, we can get an estimate for each page’s PageRank. We can start by choosing a page at random, then keep following links at random, keeping track of how many times we’ve visited each page. After we’ve gathered all of our samples (based on a number we choose in advance), the proportion of the time we were on each page might be an estimate for that page’s rank.
 
 However, this definition of PageRank proves slightly problematic, if we consider a network of pages like the below.
+![image](https://github.com/user-attachments/assets/7a149c47-bd67-4563-a125-36fa7416af31)
 
 **Disconnected corpus of web pages**
 
@@ -41,6 +44,7 @@ The first condition is fairly straightforward to express mathematically: it’s 
 For the second condition, we need to consider each possible page i that links to page p. For each of those incoming pages, let NumLinks(i) be the number of links on page i. Each page i that links to p has its own PageRank, PR(i), representing the probability that we are on page i at any given time. And since from page i we travel to any of that page’s links with equal probability, we divide PR(i) by the number of links NumLinks(i) to get the probability that we were on page i and chose the link to page p.
 
 This gives us the following definition for the PageRank for a page p.
+![image](https://github.com/user-attachments/assets/eb6c518e-7f4b-4a66-8cd4-c23b4ad8f262)
 
 **PageRank formula**
 
@@ -48,4 +52,6 @@ In this formula, d is the damping factor, N is the total number of pages in the 
 
 How would we go about calculating PageRank values for each page, then? We can do so via iteration: start by assuming the PageRank of every page is 1 / N (i.e., equally likely to be on any page). Then, use the above formula to calculate new PageRank values for each page, based on the previous PageRank values. If we keep repeating this process, calculating a new set of PageRank values for each page based on the previous set of PageRank values, eventually the PageRank values will converge (i.e., not change by more than a small threshold with each iteration).
 
-In this project, you’ll implement both such approaches for calculating PageRank – calculating both by sampling pages from a Markov Chain random surfer and by iteratively applying the PageRank formula.
+In this project, I implemented both such approaches for calculating PageRank – calculating both by sampling pages from a Markov Chain random surfer and by iteratively applying the PageRank formula.
+
+_Copyright - Harvard CS50 program_
